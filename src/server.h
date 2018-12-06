@@ -9,8 +9,6 @@
 
 using SocketDescriptor_t = int;
 
-void listenerThread(const SocketDescriptor_t communicationSocket, std::function<void(const char*)> callback);
-
 class Server
 {
     SocketDescriptor_t mSocketFd;

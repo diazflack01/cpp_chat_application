@@ -4,6 +4,10 @@ project(cpp_chat_application)
 
 add_library(server src/server.cpp)
 
-add_executable(maMain src/main.cpp)
+add_library(client src/client.cpp)
 
-target_link_libraries(maMain server pthread)
+add_executable(maServer src/server_main.cpp)
+target_link_libraries(maServer server pthread)
+
+add_executable(maClient src/client_main.cpp)
+target_link_libraries(maClient client pthread)

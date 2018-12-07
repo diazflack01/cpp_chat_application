@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 project(cpp_chat_application)
 
@@ -16,11 +17,6 @@ set(CMAKE_AUTOUIC ON)
 #Find package
 find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
-set(QT_MODULES
-    "Qt5::Core"
-    "Qt5::Widgets"
-)
-
 add_library(server src/server.cpp)
 
 add_library(client src/client.cpp)
@@ -28,5 +24,10 @@ add_library(client src/client.cpp)
 add_executable(maServer src/server_main.cpp)
 target_link_libraries(maServer server pthread)
 
-add_executable(maClient src/client_main.cpp src/mainwindow.ui)
-target_link_libraries(maClient client pthread ${QT_MODULES})
+add_executable(maClient src/client_main.cpp src/mainwindow.ui src/form.ui)
+target_link_libraries(maClient
+    client
+    pthread
+    Qt5::Core
+    Qt5::Widgets
+)

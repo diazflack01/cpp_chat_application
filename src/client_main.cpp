@@ -16,8 +16,10 @@ class MaWindow : public QMainWindow
 private slots:
     void on_pushButton_clicked()
     {
-        ui->plainTextEdit->setPlainText(ui->plainTextEdit_2->toPlainText());
-        ui->plainTextEdit_2->clear();
+        if (!ui->plainTextEdit_2->toPlainText().isEmpty()) {
+            ui->plainTextEdit->setPlainText(ui->plainTextEdit_2->toPlainText());
+            ui->plainTextEdit_2->clear();
+        }
     }
 public:
     explicit MaWindow(QMainWindow* parent = nullptr)
@@ -25,6 +27,10 @@ public:
         , ui(new Ui::MainWindow)
     {
         ui->setupUi(this);
+        QObject::connect(ui->plainTextEdit_2, &ChatBoxTextEdit::enterPressed,
+                         [&](const QString& msg){
+            ui->plainTextEdit->setPlainText(msg);
+        });
     }
 
     ~MaWindow()

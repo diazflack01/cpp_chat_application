@@ -56,7 +56,7 @@
          <number>1</number>
         </property>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_2">
+         <widget class="ChatBoxTextEdit" name="plainTextEdit_2">
           <property name="plainText">
            <string>This is where client will type</string>
           </property>
@@ -98,6 +98,13 @@
    </attribute>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ChatBoxTextEdit</class>
+   <extends>QPlainTextEdit</extends>
+   <header>src/chatboxtextedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

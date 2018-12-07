@@ -19,14 +19,11 @@ find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
 
 add_library(server src/server.cpp)
 
-add_library(client src/client.cpp)
-
 add_executable(maServer src/server_main.cpp)
 target_link_libraries(maServer server pthread)
 
-add_executable(maClient src/client_main.cpp src/mainwindow.ui src/form.ui)
+add_executable(maClient src/client_main.cpp src/client.cpp src/chatboxtextedit.cpp src/mainwindow.ui src/form.ui)
 target_link_libraries(maClient
-    client
     pthread
     Qt5::Core
     Qt5::Widgets

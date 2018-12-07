@@ -3,8 +3,10 @@
 #include <QApplication>
 #include <QMainWindow>
 
+#include <QScrollBar>
+#include <QTimer>
+
 #include "ui_mainwindow.h"
-#include "ui_form.h"
 #include "client.h"
 
 class MaWindow : public QMainWindow
@@ -13,12 +15,18 @@ class MaWindow : public QMainWindow
 
     Ui::MainWindow* ui;
 
+    void moveScrollBarToBottom()
+    {
+        ui->scrollArea->verticalScrollBar()->setSliderPosition(ui->scrollArea->verticalScrollBar()->maximum());
+        ui->plainTextEdit->moveCursor(QTextCursor::End);
+    }
 private slots:
     void on_pushButton_clicked()
     {
         if (!ui->plainTextEdit_2->toPlainText().isEmpty()) {
-            ui->plainTextEdit->setPlainText(ui->plainTextEdit_2->toPlainText());
-            ui->plainTextEdit_2->clear();
+            ui->plainTextEdit->insertPlainText(ui->plainTextEdit_2->toPlainText() + "\n");
+            ui->plainTextEdit->moveCursor(QTextCursor::End);
+            moveScrollBarToBottom();
         }
     }
 public:
@@ -29,8 +37,11 @@ public:
         ui->setupUi(this);
         QObject::connect(ui->plainTextEdit_2, &ChatBoxTextEdit::enterPressed,
                          [&](const QString& msg){
-            ui->plainTextEdit->setPlainText(msg);
+            ui->plainTextEdit->insertPlainText(msg+"\n");
+            ui->plainTextEdit->moveCursor(QTextCursor::End);
+            moveScrollBarToBottom();
         });
+        QTimer::singleShot(100, [&](){ this->moveScrollBarToBottom(); });
     }
 
     ~MaWindow()
